@@ -5,7 +5,7 @@ inputs:
   phpmd_bin_path:
     description: 'Path to phpmd.phar file'
     required: false
-    default: 'phpmd.phar'
+    default: '/action/phpmd.phar'
   files:
     description: 'filename or directory'
     required: false
