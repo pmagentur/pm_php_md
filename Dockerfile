@@ -1,6 +1,7 @@
 FROM php:latest
 
 COPY entrypoint.sh \
+     phpmd.phar \
      pmphpmd.xml \
      /action/
 
