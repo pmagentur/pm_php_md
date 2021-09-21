@@ -10,7 +10,7 @@ COPY entrypoint.sh \
 COPY pmphpmd.xml \
      composer.json \
      /home/
-COPY composer.phar /usr/local/bin/composer
+COPY composer.phar /usr/bin/composer
 RUN composer global require phpmd/phpmd
 
 RUN chmod +x /action/entrypoint.sh
