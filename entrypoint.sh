@@ -29,7 +29,7 @@ if [ "${USE_CHANGED_FILES}" = "true" ]; then
     ${EXEC} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES}
 else
     echo "${EXEC} ${INPUT_FILES} ${INPUT_RENDERERS} ${INPUT_RULES}"
-    ls -la ../
+    ls -la /
     ${EXEC} ${INPUT_FILES} ${INPUT_RENDERERS} ${INPUT_RULES}
 fi
 
