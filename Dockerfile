@@ -8,6 +8,7 @@ COPY entrypoint.sh \
 COPY phpmd.phar \
      pmphpmd.xml \
      composer.phar \
+     composer.json \
      /home/
 
 RUN chmod +x /action/entrypoint.sh
