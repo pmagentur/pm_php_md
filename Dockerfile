@@ -1,9 +1,10 @@
 FROM php:latest
 
 COPY entrypoint.sh \
-     phpmd.phar \
-     pmphpmd.xml \
      /action/
+COPY phpmd.phar \
+     pmphpmd.xml \
+     /home/
 
 RUN chmod +x /action/entrypoint.sh
 
