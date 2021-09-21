@@ -1,5 +1,7 @@
 FROM php:latest
 
+RUN apk add --no-cache jq
+
 COPY entrypoint.sh \
      /action/
 COPY phpmd.phar \
