@@ -5,7 +5,7 @@ inputs:
   phpmd_bin_path:
     description: 'Path to phpmd.phar file'
     required: false
-    default: '/action/phpmd.phar'
+    default: '/home/phpmd.phar'
   files:
     description: 'filename or directory'
     required: false
@@ -17,7 +17,7 @@ inputs:
   rules:
     description: 'Default rules or xml file'
     required: false
-    default: './pmphpmd.xml'
+    default: '/home/pmphpmd.xml'
   only_changed_files:
     description: 'Run linter on changed files only'
     required: false
