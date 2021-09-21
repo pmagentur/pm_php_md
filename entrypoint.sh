@@ -2,7 +2,8 @@
 
 
 # how execute phpmd
-EXEC='php ${INPUT_PHPMD_BIN_PATH}'
+#EXEC='php ${INPUT_PHPMD_BIN_PATH}'
+#EXEC='php phpmd.phar'
 
 # check changed files if want to check just changes
 if [ -n "${INPUT_ONLY_CHANGED_FILES}" ] && [ "${INPUT_ONLY_CHANGED_FILES}" = "true" ]; then
