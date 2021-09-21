@@ -26,14 +26,15 @@ test $? -ne 0 && echo "Could not determine changed files" && exit 1
 
 if [ "${USE_CHANGED_FILES}" = "true" ]; then
     echo "${EXEC} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES}"
+    echo "Running PHPMD for changed files"
     ${EXEC} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES}
 else
     echo "${EXEC} ${INPUT_FILES} ${INPUT_RENDERERS} ${INPUT_RULES}"
-    ls -la /
     ${EXEC} ${INPUT_FILES} ${INPUT_RENDERERS} ${INPUT_RULES}
 fi
 
 status=$?
+echo "${status}"
 
 
 #if [ "${USE_CHANGED_FILES}" = "true" ]; then
