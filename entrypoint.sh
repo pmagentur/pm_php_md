@@ -35,7 +35,7 @@ else
 fi
 # exit code of phpmd
 MD_EXIT_CODE="$?"
-echo ${MD_EXI_CODE}
+echo "${MD_EXI_CODE}"
 
 # Check the exit status regarding https://phpmd.org/documentation/index.html
 if [ "0" == ${MD_EXIT_CODE} ]; then
