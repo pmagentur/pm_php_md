@@ -15,7 +15,7 @@ if [ -n "${INPUT_ONLY_CHANGED_FILES}" ] && [ "${INPUT_ONLY_CHANGED_FILES}" = "tr
 
     CURL_RESULT=$(curl --request GET --url "${URL}" --header "${AUTH}")
     CHANGED_FILES=$(echo "${CURL_RESULT}" | jq -r '.[] | select(.status != "removed") | .filename')
-    CHANGED_FILES=$(echo ${CHANGED_FILES} | sed s/' '/',')
+    CHANGED_FILES=$(echo ${CHANGED_FILES} | sed s/' '/','/g)
 else
     echo "Will check all files"
     USE_CHANGED_FILES="false"
