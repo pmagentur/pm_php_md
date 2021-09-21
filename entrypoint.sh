@@ -33,11 +33,25 @@ else
     echo "${EXEC} ${INPUT_FILES} ${INPUT_RENDERERS} ${INPUT_RULES}"
     ${EXEC} ${INPUT_FILES} ${INPUT_RENDERERS} ${INPUT_RULES}
 fi
+# exit code of phpmd
+MD_EXIT_CODE="$?"
 
-status=$?
-echo "${status}"
-
-
+if [ "0" == ${MD_EXIT_CODE}]; then
+    # This exit code indicates that everything worked as expected.
+    status="success"
+elif [ "1" == ${MD_EXIT_CODE} ]; then
+    # This exit code indicates that an exception occurred which has interrupted PHPMD during execution.
+    status="failure"
+elif [ "2" == ${MD_EXIT_CODE} ]; then
+    # This exit code means that PHPMD has processed the code under test without the occurrence of an error/exception,
+    # but it has detected rule violations in the analyzed source code. You can also prevent this behaviour with the 
+    # --ignore-violations-on-exit flag, which will result to a 0 even if any violations are found
+    status="failure"
+elif [ "3" == ${MD_EXIT_CODE} ]; then
+    # This exit code means that one or multiple files under test could not be processed because of an error. 
+    # There may also be violations in other files that could be processed correctly
+    status="failure"
+fi
 #if [ "${USE_CHANGED_FILES}" = "true" ]; then
 #    ${INPUT_PHPMD_BIN_PATH} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES}
 #else
