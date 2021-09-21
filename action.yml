@@ -3,9 +3,9 @@ description: 'PHPMD check code compatibility'
 author: 'pm'
 inputs:
   phpmd_bin_path:
-    description: 'Path to phpmd binary'
+    description: 'Path to phpmd.phar file'
     required: false
-    default: 'vendor/bin/phpmd'
+    default: 'phpmd.phar'
   files:
     description: 'filename or directory'
     required: false
