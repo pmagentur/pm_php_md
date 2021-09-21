@@ -33,6 +33,7 @@ else
     echo "${EXEC} ${INPUT_FILES} ${INPUT_RENDERERS} ${INPUT_RULES}"
     ${EXEC} ${INPUT_FILES} ${INPUT_RENDERERS} ${INPUT_RULES}
 fi
+echo "END"
 # exit code of phpmd
 MD_EXIT_CODE="$?"
 echo "${MD_EXI_CODE}"
