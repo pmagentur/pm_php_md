@@ -1,4 +1,4 @@
-FROM php:latest
+FROM php:7.4-cli
 #RUN echo "deb http://us.archive.ubuntu.com/ubuntu" >> /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get install -y jq
@@ -10,7 +10,8 @@ COPY entrypoint.sh \
 COPY pmphpmd.xml \
      composer.json \
      /home/
-COPY composer.phar /usr/bin/composer
+COPY composer.phar /usr/local/bin/composer
+RUN chmod a+x /usr/local/bin/composer
 RUN composer global require phpmd/phpmd
 
 RUN chmod +x /action/entrypoint.sh
