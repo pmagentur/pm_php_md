@@ -1,10 +1,8 @@
 #!/bin/bash
 
 
-# Download phpmd.phar
-# Thought : keep phpmd.phar to directory
-wget -c https://phpmd.org/static/latest/phpmd.phar
-EXEC='php phpmd.phar'
+# how execute phpmd
+EXEC='php ${INPUT_PHPMD_BIN_PATH}'
 
 # check changed files if want to check just changes
 if [ -n "${INPUT_ONLY_CHANGED_FILES}" ] && [ "${INPUT_ONLY_CHANGED_FILES}" = "true" ]; then
@@ -28,7 +26,7 @@ test $? -ne 0 && echo "Could not determine changed files" && exit 1
 if [ "${USE_CHANGED_FILES}" = "true" ]; then
     ${EXEC} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES}
 else
-    ${EXEC} ${FILES} ${INPUT_RENDERERS} ${INPUT_RULES}
+    ${EXEC} ${INPUT_FILES} ${INPUT_RENDERERS} ${INPUT_RULES}
 fi
 
 status=$?
