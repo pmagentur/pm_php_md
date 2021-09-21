@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<ruleset name="My first PHPMD rule set"
+         xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0
+                     http://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+    <description>
+        PM Rule Set for PHP Code
+    </description>
+
+    <!--
+        Clean-Code
+    -->
+    <rule ref="rulesets/cleancode.xml" >
+        <exclude name="MissingImport" />
+    </rule>
+    <rule ref="rulesets/cleancode.xml/MissingImport">
+        <properties>
+            <property name="ignore-global" value="true" description="Ignore classes in the global namespace" />
+        </properties>
+    </rule>
+
+    <!--
+        Controversal
+    -->
+    <rule ref="rulesets/controversial.xml" />
+
+    <!--
+        Unused Code
+    -->
+    <rule ref="rulesets/unusedcode.xml" />
+
+    <!--
+        Naming
+    -->
+    <rule ref="rulesets/naming.xml" >
+        <exclude name="LongClassName" />
+        <exclude name="ShortClassName" />
+        <exclude name="ShortVariable" />
+        <exclude name="LongVariable" />
+    </rule>
+
+    <!--
+        Design
+    -->
+    <rule ref="rulesets/design.xml" >
+        <exclude name="NumberOfChildren" />
+        <exclude name="DepthOfInheritance" />
+        <exclude name="CouplingBetweenObjects" />
+        <exclude name="DevelopmentCodeFragment" />
+    </rule>
+    <rule ref="rulesets/design.xml/NumberOfChildren">
+        <properties>
+            <property name="minimum" value="7" description="Maximum number of acceptable child classes." />
+        </properties>
+    </rule>
+    <rule ref="rulesets/design.xml/CouplingBetweenObjects">
+        <properties>
+            <property name="maximum" value="8" description="Maximum number of acceptable dependencies." />
+        </properties>
+    </rule>
+    <rule ref="rulesets/design.xml/DevelopmentCodeFragment">
+        <properties>
+            <property name="unwanted-functions" value="var_dump,print_r,debug_zval_dump,debug_print_backtrace,dd,dump,echo" description="Comma separated list of suspect function images." />
+            <property name="ignore-namespaces" value="false" description="Ignore namespaces when looking for dev. fragments" />
+        </properties>
+    </rule>
+
+    <!--
+        Code Size
+    -->
+    <rule ref="rulesets/codesize.xml" >
+        <exclude name="CyclomaticComplexity" />
+        <exclude name="ExcessiveMethodLength" />
+        <exclude name="ExcessiveClassLength" />
+        <exclude name="ExcessiveParameterList" />
+        <exclude name="ExcessivePublicCount" />
+        <exclude name="TooManyFields" />
+    </rule>
+    <rule ref="rulesets/codesize.xml/CyclomaticComplexity">
+        <properties>
+            <property name="reportLevel" description="The Cyclomatic Complexity reporting threshold"  value="7"/>
+            <property name="showClassesComplexity"
+                      description="Indicate if class average violation should be added to the report"
+                      value="true"/>
+            <property name="showMethodsComplexity"
+                      description="Indicate if class average violation should be added to the report"
+                      value="true"/>
+        </properties>
+    </rule>
+    <rule ref="rulesets/codesize.xml/ExcessiveMethodLength">
+        <properties>
+            <property name="minimum" description="The method size reporting threshold" value="20"/>
+            <property name="ignore-whitespace" description="Count whitespace in reporting threshold" value="false"/>
+        </properties>
+    </rule>
+    <rule ref="rulesets/codesize.xml/ExcessiveClassLength">
+        <properties>
+            <property name="minimum" description="The class size reporting threshold"  value="200"/>
+            <property name="ignore-whitespace" description="Count whitespace in reporting threshold" value="false"/>
+        </properties>
+    </rule>
+    <rule ref="rulesets/codesize.xml/ExcessiveParameterList">
+        <properties>
+            <property name="minimum" description="The parameter count reporting threshold" value="4"/>
+        </properties>
+    </rule>
+    <rule ref="rulesets/codesize.xml/TooManyPublicMethods">
+        <properties>
+            <property name="maxmethods" description="The method count reporting threshold" value="7"/>
+            <property name="ignorepattern" description="Ignore methods matching this regex" value="(^(set|get|is|has))i"/>
+        </properties>
+    </rule>
+    <rule ref="rulesets/codesize.xml/TooManyFields">
+        <properties>
+            <property name="maxfields" description="The field count reporting threshold " value="8"/>
+        </properties>
+    </rule>
+</ruleset>
