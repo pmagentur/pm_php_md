@@ -3,7 +3,13 @@
 
 # how execute phpmd
 #EXEC='php ${INPUT_PHPMD_BIN_PATH}'
-EXEC='php /home/phpmd.phar'
+EXEC='/vendor/bin/phpmd'
+ECCLUDES="--exclude 'tests/*,vendor/*'"
+
+# prepeare composer
+echo "Prepearing phpmd"
+cp /home/composer.json ./composer.json
+php /home/composer.phar install
 
 # check changed files if want to check just changes
 if [ -n "${INPUT_ONLY_CHANGED_FILES}" ] && [ "${INPUT_ONLY_CHANGED_FILES}" = "true" ]; then
@@ -28,10 +34,10 @@ test $? -ne 0 && echo "Could not determine changed files" && exit 1
 if [ "${USE_CHANGED_FILES}" = "true" ]; then
     echo "${EXEC} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES}"
     echo "Running PHPMD for changed files"
-    ${EXEC} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES}
+    ${EXEC} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES} ${EXCLUDES}
 else
     echo "${EXEC} ${INPUT_FILES} ${INPUT_RENDERERS} ${INPUT_RULES}"
-    ${EXEC} ${INPUT_FILES} ${INPUT_RENDERERS} ${INPUT_RULES}
+    ${EXEC} ${INPUT_FILES} ${INPUT_RENDERERS} ${INPUT_RULES} ${EXCLUDES}
 fi
 echo "END"
 # exit code of phpmd
