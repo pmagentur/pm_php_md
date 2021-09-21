@@ -25,8 +25,10 @@ test $? -ne 0 && echo "Could not determine changed files" && exit 1
 # Run command 
 
 if [ "${USE_CHANGED_FILES}" = "true" ]; then
+    echo "${EXEC} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES}"
     ${EXEC} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES}
 else
+    echo"${EXEC} ${INPUT_FILES} ${INPUT_RENDERERS} ${INPUT_RULES}"
     ${EXEC} ${INPUT_FILES} ${INPUT_RENDERERS} ${INPUT_RULES}
 fi
 
