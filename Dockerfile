@@ -1,6 +1,6 @@
 FROM php:latest
 
-RUN apk add --no-cache jq
+RUN apt-get install -y jq
 
 COPY entrypoint.sh \
      /action/
