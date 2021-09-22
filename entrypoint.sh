@@ -34,10 +34,11 @@ else
     echo "${EXEC} ${INPUT_FILES} ${INPUT_RENDERERS} ${INPUT_RULES}"
     ${EXEC} ${INPUT_FILES} ${INPUT_RENDERERS} ${INPUT_RULES} ${EXCLUDES}
 fi
-echo "END"
+
 # exit code of phpmd
 MD_EXIT_CODE="$?"
-echo "${MD_EXI_CODE}"
+echo "EXIT CODE IS: ${MD_EXI_CODE}"
+echo "END "
 
 # Check the exit status regarding https://phpmd.org/documentation/index.html
 if [ "0" == ${MD_EXIT_CODE} ]; then

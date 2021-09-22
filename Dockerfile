@@ -8,11 +8,14 @@ RUN apt-get install -y git zip
 COPY entrypoint.sh \
      /action/
 COPY pmphpmd.xml \
-     composer.json \
+#     composer.json \
      /home/
-COPY composer.phar /usr/local/bin/composer
-RUN chmod a+x /usr/local/bin/composer
-RUN composer global require phpmd/phpmd
+#COPY composer.phar /usr/local/bin/composer
+#RUN chmod a+x /usr/local/bin/composer
+#RUN composer global require phpmd/phpmd
+COPY phpmd.phar /user/local/bin/phpmd
+RUN chmod a+x /user/local/bin/phpmd
+
 
 RUN chmod +x /action/entrypoint.sh
 
