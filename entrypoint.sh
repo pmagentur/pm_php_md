@@ -30,13 +30,15 @@ if [ "${USE_CHANGED_FILES}" = "true" ]; then
     echo "${EXEC} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES}"
     echo "Running PHPMD for changed files"
     ${EXEC} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES} ${EXCLUDES}
+    MD_EXIT_CODE="$?"
 else
     echo "${EXEC} ${INPUT_FILES} ${INPUT_RENDERERS} ${INPUT_RULES}"
     ${EXEC} ${INPUT_FILES} ${INPUT_RENDERERS} ${INPUT_RULES} ${EXCLUDES}
+    MD_EXIT_CODE="$?"
 fi
 
 # exit code of phpmd
-MD_EXIT_CODE="$?"
+
 echo "EXIT CODE IS: ${MD_EXI_CODE}"
 echo "END "
 
