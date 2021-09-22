@@ -16,6 +16,7 @@ if [ -n "${INPUT_ONLY_CHANGED_FILES}" ] && [ "${INPUT_ONLY_CHANGED_FILES}" = "tr
 
     CURL_RESULT=$(curl --request GET --url "${URL}" --header "${AUTH}")
     CHANGED_FILES=$(echo "${CURL_RESULT}" | jq -r '.[] | select(.status != "removed") | .filename')
+    # PHPMD files should be separated via comma
     CHANGED_FILES=$(echo ${CHANGED_FILES} | sed s/' '/','/g)
 else
     echo "Will check all files"
@@ -27,20 +28,14 @@ test $? -ne 0 && echo "Could not determine changed files" && exit 1
 # Run command 
 
 if [ "${USE_CHANGED_FILES}" = "true" ]; then
-    echo "${EXEC} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES}"
-    echo "Running PHPMD for changed files"
     ${EXEC} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES} ${EXCLUDES}
-    MD_EXIT_CODE="$?"
 else
     echo "${EXEC} ${INPUT_FILES} ${INPUT_RENDERERS} ${INPUT_RULES}"
     ${EXEC} ${INPUT_FILES} ${INPUT_RENDERERS} ${INPUT_RULES} ${EXCLUDES}
-    MD_EXIT_CODE="$?"
 fi
 
 # exit code of phpmd
-
-echo "EXIT CODE IS: ${MD_EXIT_CODE}"
-echo "END "
+MD_EXIT_CODE="$?"
 
 # Check the exit status regarding https://phpmd.org/documentation/index.html
 if [ "0" == ${MD_EXIT_CODE} ]; then
