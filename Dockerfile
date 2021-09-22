@@ -13,9 +13,8 @@ COPY pmphpmd.xml \
 #COPY composer.phar /usr/local/bin/composer
 #RUN chmod a+x /usr/local/bin/composer
 #RUN composer global require phpmd/phpmd
-COPY phpmd.phar /user/local/bin/phpmd
-RUN chmod a+x /user/local/bin/phpmd
-
+COPY phpmd.phar /usr/local/bin/phpmd
+RUN chmod a+x /usr/local/bin/phpmd
 
 RUN chmod +x /action/entrypoint.sh
 
