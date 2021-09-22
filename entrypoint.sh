@@ -4,6 +4,7 @@
 # how execute phpmd
 #EXEC='php ${INPUT_PHPMD_BIN_PATH}'
 EXEC='phpmd'
+ANOTATION_TOOL="pmd2pr"
 ECCLUDES="--exclude 'tests/*,vendor/*'"
 
 # check changed files if want to check just changes
@@ -28,10 +29,9 @@ test $? -ne 0 && echo "Could not determine changed files" && exit 1
 # Run command 
 
 if [ "${USE_CHANGED_FILES}" = "true" ]; then
-    ${EXEC} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES} ${EXCLUDES}
+    ${EXEC} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES} ${EXCLUDES} | ${ANOTATION_TOOL}
 else
-    echo "${EXEC} ${INPUT_FILES} ${INPUT_RENDERERS} ${INPUT_RULES}"
-    ${EXEC} ${INPUT_FILES} ${INPUT_RENDERERS} ${INPUT_RULES} ${EXCLUDES}
+    ${EXEC} ${INPUT_FILES} ${INPUT_RENDERERS} ${INPUT_RULES} ${EXCLUDES} | ${ANOTATION_TOOL}
 fi
 
 # exit code of phpmd
