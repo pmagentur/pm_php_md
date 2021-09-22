@@ -39,7 +39,7 @@ fi
 
 # exit code of phpmd
 
-echo "EXIT CODE IS: ${MD_EXI_CODE}"
+echo "EXIT CODE IS: ${MD_EXIT_CODE}"
 echo "END "
 
 # Check the exit status regarding https://phpmd.org/documentation/index.html
