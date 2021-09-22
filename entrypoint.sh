@@ -36,7 +36,7 @@ fi
 
 # exit code of phpmd
 MD_EXIT_CODE="$?"
-echo "EXIT CODE IS>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+echo "EXIT CODE IS:"
 echo $MD_EXIT_CODE
 
 # Check the exit status regarding https://phpmd.org/documentation/index.html
@@ -56,6 +56,8 @@ elif [ "3" == ${MD_EXIT_CODE} ]; then
     # There may also be violations in other files that could be processed correctly
     status="failure"
 fi
+
+exit $MD_EXIT_CODE
 #if [ "${USE_CHANGED_FILES}" = "true" ]; then
 #    ${INPUT_PHPMD_BIN_PATH} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES}
 #else
