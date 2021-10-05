@@ -29,6 +29,9 @@ test $? -ne 0 && echo "Could not determine changed files" && exit 1
 
 # Check if basline file exists
 if [ -f ${BASELINE_FILE} ]; then
+    echo "File Was found" 
+    echo "path"
+    pwd
     BASELINE_OPTION="--baseline-file ${BASELINE_FILE}"
 fi
 
@@ -37,6 +40,8 @@ echo "BASELINE FILE IS:"
 echo ${BASELINE_FILE}
 echo "BASELINE OPTION IS:"
 echo ${BASELINE_OPTION}
+echo "path"
+pwd
 echo "list directory"
 ls
 # Run command 
