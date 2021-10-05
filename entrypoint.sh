@@ -6,6 +6,8 @@
 EXEC='phpmd'
 ANOTATION_TOOL="pmd2pr"
 ECCLUDES="--exclude 'tests/*,vendor/*'"
+BASELINE_FILE="${{ github.event.repository.name }}.baseline.xml"
+BASELINE_OPTION=""
 
 # check changed files if want to check just changes
 if [ -n "${INPUT_ONLY_CHANGED_FILES}" ] && [ "${INPUT_ONLY_CHANGED_FILES}" = "true" ]; then
@@ -25,13 +27,23 @@ else
 fi
 test $? -ne 0 && echo "Could not determine changed files" && exit 1
 
+# Check if basline file exists
+if [ -f ${BASELINE_FILE} ] then;
+    BASELINE_OPTION="--baseline-file ${BASELINE_FILE}"
+fi
 
+#test
+echo "BASELINE FILE IS:"
+echo ${BASELINE_FILE}
+echo "BASELINE OPTION IS:"
+echo ${BASELINE_OPTION}
+echo "list directory"
+ls
 # Run command 
-
 if [ "${USE_CHANGED_FILES}" = "true" ]; then
-    ${EXEC} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES} ${EXCLUDES} | ${ANOTATION_TOOL}
+    ${EXEC} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES} ${EXCLUDES} ${BASELINE_OPTION} | ${ANOTATION_TOOL}
 else
-    ${EXEC} ${INPUT_FILES} ${INPUT_RENDERERS} ${INPUT_RULES} ${EXCLUDES} | ${ANOTATION_TOOL}
+    ${EXEC} ${INPUT_FILES} ${INPUT_RENDERERS} ${INPUT_RULES} ${EXCLUDES} ${BASELINE_OPTION} | ${ANOTATION_TOOL}
 fi
 
 # exit code of phpmd
