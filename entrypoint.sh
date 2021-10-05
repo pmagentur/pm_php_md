@@ -28,7 +28,7 @@ fi
 test $? -ne 0 && echo "Could not determine changed files" && exit 1
 
 # Check if basline file exists
-if [ -f ${BASELINE_FILE} ] then;
+if [ -f ${BASELINE_FILE} ]; then
     BASELINE_OPTION="--baseline-file ${BASELINE_FILE}"
 fi
 
