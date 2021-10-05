@@ -6,7 +6,7 @@
 EXEC='phpmd'
 ANOTATION_TOOL="pmd2pr"
 ECCLUDES="--exclude 'tests/*,vendor/*'"
-BASELINE_FILE="${{ github.event.repository.name }}.baseline.xml"
+BASELINE_FILE="${GITHUB_REPOSITORY#*/}.baseline.xml"
 BASELINE_OPTION=""
 
 # check changed files if want to check just changes
