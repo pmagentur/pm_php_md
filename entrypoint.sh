@@ -42,6 +42,8 @@ echo "BASELINE OPTION IS:"
 echo ${BASELINE_OPTION}
 echo "path"
 pwd
+echo "branch"
+echo ${GITHUB_REF##*/}
 echo "list directory"
 ls
 # Run command 
