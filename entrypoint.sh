@@ -13,6 +13,8 @@ BASELINE_OPTION=""
 if [ -n "${INPUT_ONLY_CHANGED_FILES}" ] && [ "${INPUT_ONLY_CHANGED_FILES}" = "true" ]; then
     echo "Will only check changed files"
     USE_CHANGED_FILES="true"
+    echo "GITHUB_EVENT_PATH"
+    echo "${GITHUB_EVENT_PATH}"
     PR="$(jq -r '.pull_request.number' < "${GITHUB_EVENT_PATH}")"
     echo "PR:"
     echo "${PR}"
