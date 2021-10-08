@@ -13,49 +13,24 @@ BASELINE_OPTION=""
 if [ -n "${INPUT_ONLY_CHANGED_FILES}" ] && [ "${INPUT_ONLY_CHANGED_FILES}" = "true" ]; then
     echo "Will only check changed files"
     USE_CHANGED_FILES="true"
-    echo "GITHUB_EVENT_PATH"
-    echo "${GITHUB_EVENT_PATH}"
-    echo "json file"
     cat ${GITHUB_EVENT_PATH}
     PR="$(jq -r '.pull_request.number' < "${GITHUB_EVENT_PATH}")"
-    echo "PR:"
-    echo "${PR}"
     URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${PR}/files"
-    echo "URL:"
-    echo "${URL}"
     AUTH="Authorization: Bearer ${INPUT_TOKEN}"
-
     CURL_RESULT=$(curl --request GET --url "${URL}" --header "${AUTH}")
-    echo "CURL_RESULT:"
-    echo "${CURL_RESULT}"
     CHANGED_FILES=$(echo "${CURL_RESULT}" | jq -r '.[] | select(.status != "removed") | .filename')
     # PHPMD files should be separated via comma
     CHANGED_FILES=$(echo ${CHANGED_FILES} | sed s/' '/','/g)
 else
-    echo "Will check all files"
     USE_CHANGED_FILES="false"
 fi
 test $? -ne 0 && echo "Could not determine changed files" && exit 1
 
 # Check if basline file exists
 if [ -f ${BASELINE_FILE} ]; then
-    echo "File Was found" 
-    echo "path"
-    pwd
     BASELINE_OPTION="--baseline-file ${BASELINE_FILE}"
 fi
 
-#test
-echo "BASELINE FILE IS:"
-echo ${BASELINE_FILE}
-echo "BASELINE OPTION IS:"
-echo ${BASELINE_OPTION}
-echo "path"
-pwd
-echo "branch"
-echo ${GITHUB_REF##*/}
-echo "list directory"
-ls
 # Run command 
 if [ "${USE_CHANGED_FILES}" = "true" ]; then
     echo "${EXEC} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES} ${EXCLUDES} ${BASELINE_OPTION} | ${ANOTATION_TOOL}"
