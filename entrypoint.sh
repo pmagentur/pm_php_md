@@ -17,7 +17,6 @@ cp /action/phpdoctor-matcher.json /github/workflow/phpdoctor-matcher.json
 if [ -n "${INPUT_ONLY_CHANGED_FILES}" ] && [ "${INPUT_ONLY_CHANGED_FILES}" = "true" ]; then
     echo "Will only check changed files"
     USE_CHANGED_FILES="true"
-    cat ${GITHUB_EVENT_PATH}
     PR="$(jq -r '.pull_request.number' < "${GITHUB_EVENT_PATH}")"
     URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${PR}/files"
     AUTH="Authorization: Bearer ${INPUT_TOKEN}"
@@ -36,7 +35,7 @@ if [ -f ${BASELINE_FILE} ]; then
 fi
 
 # Check if phpDoctor enabled
-if [ ${INPUT_USE_PHP_DOCTOR} = "true" ]
+if [ ${INPUT_USE_PHP_DOCTOR} = "true" ]; then
     # PHPDOCTOR files should be separated via spase
     CHANGED_FILES_FOR_PHPDOCTOR=$(echo ${CHANGED_FILES} | sed s/','/' '/g)
     PHPDOCTOR_COMMAND="phpdoctor analyse "
