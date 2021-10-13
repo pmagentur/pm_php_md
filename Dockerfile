@@ -10,6 +10,7 @@ COPY entrypoint.sh \
 COPY pmphpmd.xml \
      /home/
 COPY composer.phar /usr/local/bin/composer
+COPY phpdoctor.phar /usr/local/bin/phpdoctor
 
 RUN chmod a+x /usr/local/bin/composer
 RUN composer global require phpmd/phpmd mridang/pmd-annotations
