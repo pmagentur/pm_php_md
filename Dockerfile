@@ -6,6 +6,7 @@ RUN apt-get install -y git zip
 
 
 COPY entrypoint.sh \
+     phpdoctor-matcher.json \
      /action/
 COPY pmphpmd.xml \
      /home/
