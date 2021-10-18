@@ -6,12 +6,10 @@ RUN apt-get install -y git zip
 
 
 COPY entrypoint.sh \
-     phpdoctor-matcher.json \
      /action/
 COPY pmphpmd.xml \
      /home/
 COPY composer.phar /usr/local/bin/composer
-COPY phpdoctor.phar /usr/local/bin/phpdoctor
 
 RUN chmod a+x /usr/local/bin/composer
 RUN composer global require phpmd/phpmd mridang/pmd-annotations

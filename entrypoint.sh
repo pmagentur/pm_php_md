@@ -8,10 +8,6 @@ ANOTATION_TOOL="pmd2pr"
 ECCLUDES="--exclude 'tests/*,vendor/*'"
 BASELINE_FILE="${GITHUB_REPOSITORY#*/}.baseline.xml"
 BASELINE_OPTION=""
-CHANGED_FILES_FOR_PHPDOCTOR="${INPUT_FILES}"
-PHPDOCTOR_COMMAND=""
-
-cp /action/phpdoctor-matcher.json /github/workflow/phpdoctor-matcher.json
 
 # check changed files if want to check just changes
 if [ -n "${INPUT_ONLY_CHANGED_FILES}" ] && [ "${INPUT_ONLY_CHANGED_FILES}" = "true" ]; then
@@ -22,8 +18,6 @@ if [ -n "${INPUT_ONLY_CHANGED_FILES}" ] && [ "${INPUT_ONLY_CHANGED_FILES}" = "tr
     AUTH="Authorization: Bearer ${INPUT_TOKEN}"
     CURL_RESULT=$(curl --request GET --url "${URL}" --header "${AUTH}")
     CHANGED_FILES=$(echo "${CURL_RESULT}" | jq -r '.[] | select(.status != "removed") | .filename')
-    # PHPMD files should be separated via comma
-    CHANGED_FILES=$(echo ${CHANGED_FILES} | sed s/' '/','/g)
 else
     USE_CHANGED_FILES="false"
 fi
@@ -34,30 +28,16 @@ if [ -f ${BASELINE_FILE} ]; then
     BASELINE_OPTION="--baseline-file ${BASELINE_FILE}"
 fi
 
-# Check if phpDoctor enabled
-if [ ${INPUT_USE_PHP_DOCTOR} = "true" ]; then
-    # PHPDOCTOR files should be separated via spase
-    CHANGED_FILES_FOR_PHPDOCTOR=$(echo ${CHANGED_FILES} | sed s/','/' '/g)
-    PHPDOCTOR_COMMAND="phpdoctor analyse "
-else
-    PHPDOCTOR_COMMAND="echo 'phpdoctor command is disabled'"
-fi
-
-echo "::add-matcher::${RUNNER_TEMP}/_github_workflow/phpdoctor-matcher.json"
-#TODO fix if phpdoctor disabled and use_changed_files = false
 # Run command 
 if [ "${USE_CHANGED_FILES}" = "true" ]; then
     echo "${EXEC} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES} ${EXCLUDES} ${BASELINE_OPTION} | ${ANOTATION_TOOL}"
     ${EXEC} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES} ${EXCLUDES} ${BASELINE_OPTION} | ${ANOTATION_TOOL}
-    ${PHPDOCTOR_COMMAND} ${CHANGED_FILES_FOR_PHPDOCTOR}
 else
     ${EXEC} ${INPUT_FILES} ${INPUT_RENDERERS} ${INPUT_RULES} ${EXCLUDES} ${BASELINE_OPTION} | ${ANOTATION_TOOL}
-    ${PHPDOCTOR_COMMAND} ${INPUT_FILES}
 fi
 
 # exit code of phpmd
 MD_EXIT_CODE="$?"
-echo "::remove-matcher owner=phpdoctor::"
 
 # Check the exit status regarding https://phpmd.org/documentation/index.html
 if [ "0" == ${MD_EXIT_CODE} ]; then

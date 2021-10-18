@@ -22,10 +22,6 @@ inputs:
     description: 'Run linter on changed files only'
     required: false
     default: ''
-  use_php_doctor:
-    description: 'Option for phpDoctor check true|false'
-    required: false
-    default: 'false'
   token:
     description: >
       Personal access token (PAT) used to fetch the repository. The PAT is stored
