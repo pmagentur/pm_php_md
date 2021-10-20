@@ -26,9 +26,15 @@ fi
 test $? -ne 0 && echo "Could not determine changed files" && exit 1
 
 # Check if basline file exists
-if [ -f ${BASELINE_FILE} ]; then
+if find ./ -iname ${BASELINE_FILE} ; then
+    cp ${BASELINE_PATH}/${BASELINE_FILE} ./
     BASELINE_OPTION="--baseline-file ${BASELINE_FILE}"
 fi
+
+# Check if basline file exists
+#if [ -f ${BASELINE_FILE} ]; then
+#    BASELINE_OPTION="--baseline-file ${BASELINE_FILE}"
+#fi
 
 # Run command 
 if [ "${USE_CHANGED_FILES}" = "true" ]; then
