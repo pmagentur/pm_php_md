@@ -39,6 +39,25 @@
         <exclude name="ShortClassName" />
         <exclude name="ShortVariable" />
         <exclude name="LongVariable" />
+        <exclude name="ShortMethodName" />
+    </rule>
+    <rule ref="rulesets/naming.xml/LongClassName">
+        <properties>
+            <property name="maximum" value="50" description="The class name length reporting threshold." />
+            <property name="subtract-suffixes" value="" description="Comma-separated list of suffixes that will not count in the length of the class name. Only the first matching suffix will be subtracted." />
+        </properties>
+    </rule>
+    <rule ref="rulesets/naming.xml/ShortClassName">
+        <properties>
+            <property name="minimum" value="2" description="The class name length reporting threshold" />
+            <property name="exceptions" value="" description="Comma-separated list of exceptions. Example: Log,URL,FTP" />
+        </properties>
+    </rule>
+    <rule ref="rulesets/naming.xml/LongVariable">
+        <properties>
+            <property name="maximum" value="80" description="The variable length reporting threshold" />
+            <property name="subtract-suffixes" value="" description="Comma-separated list of suffixes that will not count in the length of the variable name. Only the first matching suffix will be subtracted." />
+        </properties>
     </rule>
 
     <!--
@@ -71,33 +90,22 @@
         Code Size
     -->
     <rule ref="rulesets/codesize.xml" >
-        <exclude name="CyclomaticComplexity" />
         <exclude name="ExcessiveMethodLength" />
         <exclude name="ExcessiveClassLength" />
         <exclude name="ExcessiveParameterList" />
-        <exclude name="ExcessivePublicCount" />
+        <exclude name="TooManyPublicMethods" />
         <exclude name="TooManyFields" />
-    </rule>
-    <rule ref="rulesets/codesize.xml/CyclomaticComplexity">
-        <properties>
-            <property name="reportLevel" description="The Cyclomatic Complexity reporting threshold"  value="7"/>
-            <property name="showClassesComplexity"
-                      description="Indicate if class average violation should be added to the report"
-                      value="true"/>
-            <property name="showMethodsComplexity"
-                      description="Indicate if class average violation should be added to the report"
-                      value="true"/>
-        </properties>
+        <exclude name="TooManyMethods" />
     </rule>
     <rule ref="rulesets/codesize.xml/ExcessiveMethodLength">
         <properties>
-            <property name="minimum" description="The method size reporting threshold" value="20"/>
+            <property name="minimum" description="The method size reporting threshold" value="50"/>
             <property name="ignore-whitespace" description="Count whitespace in reporting threshold" value="false"/>
         </properties>
     </rule>
     <rule ref="rulesets/codesize.xml/ExcessiveClassLength">
         <properties>
-            <property name="minimum" description="The class size reporting threshold"  value="200"/>
+            <property name="minimum" description="The class size reporting threshold"  value="400"/>
             <property name="ignore-whitespace" description="Count whitespace in reporting threshold" value="false"/>
         </properties>
     </rule>
@@ -108,13 +116,19 @@
     </rule>
     <rule ref="rulesets/codesize.xml/TooManyPublicMethods">
         <properties>
-            <property name="maxmethods" description="The method count reporting threshold" value="7"/>
+            <property name="maxmethods" description="The method count reporting threshold" value="8"/>
             <property name="ignorepattern" description="Ignore methods matching this regex" value="(^(set|get|is|has))i"/>
         </properties>
     </rule>
     <rule ref="rulesets/codesize.xml/TooManyFields">
         <properties>
-            <property name="maxfields" description="The field count reporting threshold " value="8"/>
+            <property name="maxfields" description="The field count reporting threshold " value="10"/>
+        </properties>
+    </rule>
+    <rule ref="rulesets/codesize.xml/TooManyMethods">
+        <properties>
+            <property name="maxmethods" description="The method count reporting threshold" value="25"/>
+            <property name="ignorepattern" description="Ignore methods matching this regex" value="(^(set|get|is|has))i"/>
         </properties>
     </rule>
 </ruleset>
