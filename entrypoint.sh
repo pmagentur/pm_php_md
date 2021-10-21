@@ -27,9 +27,6 @@ test $? -ne 0 && echo "Could not determine changed files" && exit 1
 
 # Check if basline file exists
 if [[ ! -z ${BASELINE_PATH} ]] && [ -f ${BASELINE_PATH}/${BASELINE_FILE} ] ; then
-    pwd
-    ls
-    ls ../
     echo "${BASELINE_PATH}/${BASELINE_FILE}"
     cp "${BASELINE_PATH}/${BASELINE_FILE}" .
     BASELINE_OPTION="--baseline-file ${BASELINE_FILE}"
@@ -42,6 +39,7 @@ fi
 
 # Run command 
 if [ "${USE_CHANGED_FILES}" = "true" ]; then
+    ls
     echo "${EXEC} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES} ${EXCLUDES} ${BASELINE_OPTION} | ${ANOTATION_TOOL}"
     ${EXEC} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES} ${EXCLUDES} ${BASELINE_OPTION} | ${ANOTATION_TOOL}
 else
