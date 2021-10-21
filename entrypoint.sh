@@ -26,7 +26,7 @@ fi
 test $? -ne 0 && echo "Could not determine changed files" && exit 1
 
 # Check if basline file exists
-if find ./ -iname ${BASELINE_FILE} ; then
+if [[ ! -z ${BASELINE_PATH} ]] && [ -f ${BASELINE_PATH}/${BASELINE_FILE} ] ; then
     pwd
     ls
     ls ../
