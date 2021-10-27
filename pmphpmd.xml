@@ -20,7 +20,7 @@
             <property name="ignore-global" value="true" description="Ignore classes in the global namespace" />
         </properties>
     </rule>
-
+c
     <!--
         Controversal
     -->
