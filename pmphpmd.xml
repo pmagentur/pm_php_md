@@ -24,7 +24,13 @@
     <!--
         Controversal
     -->
-    <rule ref="rulesets/controversial.xml" />
+    <rule ref="rulesets/controversial.xml">
+          <exclude name="CamelCaseClassName" /> <!-- Removed for wordpress -->
+          <exclude name="CamelCasePropertyName" /> <!-- Removed for wordpress -->
+          <exclude name="CamelCaseMethodName" /> <!-- Removed for wordpress -->
+          <exclude name="CamelCaseParameterName" /> <!-- Removed for wordpress -->
+          <exclude name="CamelCaseVariableName" /> <!-- Removed for wordpress -->
+    </rule>
 
     <!--
         Unused Code
