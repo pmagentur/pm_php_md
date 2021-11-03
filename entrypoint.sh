@@ -15,8 +15,12 @@ if [ -n "${INPUT_ONLY_CHANGED_FILES}" ] && [ "${INPUT_ONLY_CHANGED_FILES}" = "tr
     USE_CHANGED_FILES="true"
     PR="$(jq -r '.pull_request.number' < "${GITHUB_EVENT_PATH}")"
     URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${PR}/files"
+    echo "URL"
+    echo ${URL}
     AUTH="Authorization: Bearer ${INPUT_TOKEN}"
     CURL_RESULT=$(curl --request GET --url "${URL}" --header "${AUTH}")
+    echo "CURL RESULT"
+    echo ${CURL_RESULT}
     CHANGED_FILES=$(echo "${CURL_RESULT}" | jq -r '.[] | select(.status != "removed") | .filename')
     # PHPMD files should be separated via comma
     CHANGED_FILES=$(echo ${CHANGED_FILES} | sed s/' '/','/g)
