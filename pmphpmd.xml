@@ -72,7 +72,7 @@
     </rule>
     <rule ref="rulesets/design.xml/DevelopmentCodeFragment">
         <properties>
-            <property name="unwanted-functions" value="var_dump,print_r,debug_zval_dump,debug_print_backtrace,dd,dump,echo,Shopware" description="Comma separated list of suspect function images." />
+            <property name="unwanted-functions" value="var_dump,print_r,debug_zval_dump,debug_print_backtrace,dd,dump,echo,Shopware,Front" description="Comma separated list of suspect function images." />
             <property name="ignore-namespaces" value="true" description="Ignore namespaces when looking for dev. fragments" />
         </properties>
     </rule>
