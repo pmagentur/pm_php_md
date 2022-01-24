@@ -39,7 +39,13 @@ fi
 # Run command 
 if [ "${USE_CHANGED_FILES}" = "true" ]; then
     echo "${EXEC} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES} ${EXCLUDES} ${BASELINE_OPTION}"
-    ${EXEC} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES} ${EXCLUDES} ${BASELINE_OPTION}
+    OUTPUT=$(${EXEC} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES} ${EXCLUDES} ${BASELINE_OPTION})
+    OWNER=${GITHUB_REPOSITORY_OWNER}
+    REPO_NAME=${GITHUB_REPOSITORY}
+    HEAD_SHA=${GITHUB_SHA}
+    URL="https://pm-code-check.pm-projects.de/my-checks/phpmd_check?owner=${OWNER}&repo_name=${REPO_NAME}&head_sha=${HEAD_SHA}"
+    curl -X POST -H "Content-Type: application/json" -d "${OUTPUT}" ${URL}
+
 else
     ${EXEC} ${INPUT_FILES} ${INPUT_RENDERERS} ${INPUT_RULES} ${EXCLUDES} ${BASELINE_OPTION} 
 fi
