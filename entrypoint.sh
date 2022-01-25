@@ -45,9 +45,8 @@ if [ "${USE_CHANGED_FILES}" = "true" ]; then
     echo ${OWNER}
     REPO_NAME=${GITHUB_REPOSITORY#*/}
     echo ${REPO_NAME}
-    HEAD_SHA=${{github.event.pull_request.head.sha}}
-    echo ${HEAD_SHA}
-    URL="https://pm-code-check.pm-projects.de/my-checks/phpmd_check?owner=${OWNER}&repo_name=${REPO_NAME}&head_sha=${HEAD_SHA}"
+    echo ${INPUT_HEAD_SHA_ANNOTATIONS}
+    URL="https://pm-code-check.pm-projects.de/my-checks/phpmd_check?owner=${OWNER}&repo_name=${REPO_NAME}&head_sha=${INPUT_HEAD_SHA_ANNOTATIONS}"
     echo ${URL}
     curl -X POST -H "Content-Type: application/json" -d "${OUTPUT}" ${URL}
 
