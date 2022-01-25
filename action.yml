@@ -22,6 +22,10 @@ inputs:
     description: 'Run linter on changed files only'
     required: false
     default: ''
+  head_sha_annotations:
+    description: 'head_sha for cheating annotations'
+    required: false
+    default: ''
   token:
     description: >
       Personal access token (PAT) used to fetch the repository. The PAT is stored
