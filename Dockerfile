@@ -3,7 +3,7 @@ FROM php:7.4-cli
 RUN apt-get update
 RUN apt-get install -y jq
 RUN apt-get install -y git zip
-RUN apt-get install python3.6
+RUN apt-get install -y python3
 
 
 COPY entrypoint.sh \
