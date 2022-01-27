@@ -7,6 +7,8 @@ EXEC='phpmd'
 ECCLUDES="--exclude 'tests/*,vendor/*'"
 BASELINE_FILE="${GITHUB_REPOSITORY#*/}.baseline.xml"
 BASELINE_OPTION=""
+OUTPUT_FILE="phpmd_output.${INPUT_RENDERERS}"
+PARSER="./parse_phpmd.py"
 
 # check changed files if want to check just changes
 if [ -n "${INPUT_ONLY_CHANGED_FILES}" ] && [ "${INPUT_ONLY_CHANGED_FILES}" = "true" ]; then
@@ -39,23 +41,18 @@ fi
 # Run command 
 if [ "${USE_CHANGED_FILES}" = "true" ]; then
     echo "${EXEC} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES} ${EXCLUDES} ${BASELINE_OPTION}"
-    OUTPUT=$(${EXEC} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES} ${EXCLUDES} ${BASELINE_OPTION})
-    echo ${OUTPUT}
+    ${EXEC} ${CHANGED_FILES} ${INPUT_RENDERERS} ${INPUT_RULES} ${EXCLUDES} ${BASELINE_OPTION}) &> ${OUTPUT_FILE}
+    # exit code of phpmd
+    MD_EXIT_CODE="$?"
     OWNER=${GITHUB_REPOSITORY_OWNER}
-    echo ${OWNER}
     REPO_NAME=${GITHUB_REPOSITORY#*/}
-    echo ${REPO_NAME}
-    echo ${INPUT_HEAD_SHA_ANNOTATIONS}
-    URL="https://pm-code-check.pm-projects.de/my-checks/phpmd_check?owner=${OWNER}&repo_name=${REPO_NAME}&head_sha=${INPUT_HEAD_SHA_ANNOTATIONS}"
-    echo ${URL}
-    curl -X POST -H "Content-Type: application/json" -d "${OUTPUT}" ${URL}
+    
+    echo "${PARSER} ${OWNER} ${REPO_NAME} ${INPUT_HEAD_SHA_ANNOTATIONS} ${OUTPUT_FILE}"
+    ${PARSER} ${OWNER} ${REPO_NAME} ${INPUT_HEAD_SHA_ANNOTATIONS} ${OUTPUT_FILE}
 
 else
     ${EXEC} ${INPUT_FILES} ${INPUT_RENDERERS} ${INPUT_RULES} ${EXCLUDES} ${BASELINE_OPTION} 
 fi
-
-# exit code of phpmd
-MD_EXIT_CODE="$?"
 
 # Check the exit status regarding https://phpmd.org/documentation/index.html
 if [ "0" == ${MD_EXIT_CODE} ]; then
