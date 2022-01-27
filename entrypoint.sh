@@ -8,7 +8,7 @@ ECCLUDES="--exclude 'tests/*,vendor/*'"
 BASELINE_FILE="${GITHUB_REPOSITORY#*/}.baseline.xml"
 BASELINE_OPTION=""
 OUTPUT_FILE="phpmd_output.${INPUT_RENDERERS}"
-PARSER="./parse_phpmd.py"
+PARSER="/action/parse_phpmd.py"
 
 # check changed files if want to check just changes
 if [ -n "${INPUT_ONLY_CHANGED_FILES}" ] && [ "${INPUT_ONLY_CHANGED_FILES}" = "true" ]; then
