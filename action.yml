@@ -23,7 +23,7 @@ inputs:
     required: false
     default: ''
   head_sha_annotations:
-    description: 'head_sha for cheating annotations'
+    description: 'head_sha for creating annotations'
     required: false
     default: ''
   token:
