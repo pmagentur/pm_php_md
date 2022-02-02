@@ -37,6 +37,7 @@ def update_pr(owner, repo_name, head_sha, file):
     params = {"owner": owner, "repo_name": repo_name, "head_sha": head_sha, "check_name": "Phpmd check"}
     head = {"Content-Type'": "application/json"}
     all_violations = get_all_violations(file)
+    print(all_violations)
     response = requests.post(URL, json=all_violations, params=params, headers=head)
     print(response)
 
