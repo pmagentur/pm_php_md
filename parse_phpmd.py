@@ -28,7 +28,7 @@ def get_all_violations(json_file: str) -> dict:
     # adding violations items to list
         for violation in file["violations"]:
             violation_item = {"path": file["file"].replace(github_prefix,""), "start_line": violation["beginLine"],
-         "end_line": violation["endLine"], "annotation_level": "warning", "message": violation["description"]}
+         "end_line": violation["beginLine"], "annotation_level": "warning", "message": violation["description"]}
             violations.append(violation_item)
     return violations
 
