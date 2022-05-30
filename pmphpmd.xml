@@ -13,6 +13,7 @@
         Clean-Code
     -->
     <rule ref="rulesets/cleancode.xml" >
+        <exclude name="StaticAccess" />
         <exclude name="MissingImport" />
     </rule>
     <rule ref="rulesets/cleancode.xml/MissingImport">
@@ -41,9 +42,16 @@
         Naming
     -->
     <rule ref="rulesets/naming.xml" >
+        <exclude name="ShortVariable" />
         <exclude name="LongClassName" />
         <exclude name="LongVariable" />
         <exclude name="ShortMethodName" />
+    </rule>
+    <rule ref="rulesets/naming.xml/ShortVariable">
+        <properties>
+            <property name="minimum" value="3" description="Minimum length for a variable, property or parameter name." />
+            <property name="exceptions" value="id" description="Comma-separated list of exceptions." />
+        </properties>
     </rule>
     <rule ref="rulesets/naming.xml/LongClassName">
         <properties>
