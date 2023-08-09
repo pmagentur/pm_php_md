@@ -1,11 +1,10 @@
-FROM php:8.1-cli
+FROM php:7.4-cli
 
 RUN apt-get update
 RUN apt-get install -y jq
 RUN apt-get install -y git zip
 RUN apt-get install -y python3
 RUN apt-get install -y python3-requests
-
 
 COPY entrypoint.sh \
      parse_phpmd.py\
